@@ -1,2 +1,2 @@
 # Programming Erokhina Anastasia IVT 1-1
-1 курс ИВТ
+1 курс ИВТ Программирование 
