@@ -101,7 +101,7 @@ Vvedite x: 10
 Vvedite y: 12
 Rezultat: u(x,y) = 0.005257
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193843.png)
 ---
 
 ## Задача 1.4
@@ -161,7 +161,7 @@ Vvedite b: 5
 Vvedite c: 9
 Rezultat: h(x) = -10.146468
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193849.png)
 ---
 
 ## Задача 2.1
@@ -213,7 +213,7 @@ Koordinaty Marsa:
 X = -75262953.20 km
 Y = 215113685.93 km
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193857.png)
 ---
 
 ## Задача 2.2
@@ -256,7 +256,7 @@ Vvedite koordinatu X: 1
 Vvedite koordinatu Y: 1
 Tochka ne popadaet v oblast
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193903.png)
 ---
 
 ## Задача 2.3
@@ -313,7 +313,7 @@ Vvedite maksimalnoe chislo m: 100
 Posledovatelnost chisel Padovana:
 1 1 1 2 2 3 4 5 7 9 12 16 21 28 37 49 65 86
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193936.png)
 ---
 
 ## Задача 2.4
@@ -370,7 +370,7 @@ Summa tsifr: 3
 
 Rezultat: summa tsifr ne prevyshaet 10
 ```
-
+(img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193943.png)
 ---
 
 ## Информация о студенте
