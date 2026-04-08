@@ -393,7 +393,9 @@ Rezultat: summa tsifr ne prevyshaet 10
 
 #### Код программы
 ```c
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     int n;
@@ -401,22 +403,26 @@ int main() {
     printf("Vvedite razmer vektora: ");
     scanf("%d", &n);
 
-    int X[n], Y[n];
+    int* X = (int*)malloc(n * sizeof(int));
+    int* Y = (int*)malloc(n * sizeof(int));
 
     printf("Vvedite elementy vektora X:\n");
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("X[%d] = ", i);
         scanf("%d", &X[i]);
     }
 
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         Y[i] = X[i] * X[i];
     }
 
     printf("Vektor Y:\n");
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("Y[%d] = %d\n", i, Y[i]);
     }
+
+    free(X);
+    free(Y);
 
     return 0;
 }
@@ -458,7 +464,9 @@ Y[1] = 4
 
 #### Код программы
 ```c
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     int n;
@@ -466,24 +474,26 @@ int main() {
     printf("Vvedite razmer massiva: ");
     scanf("%d", &n);
 
-    int X[n];
+    int* X = (int*)malloc(n * sizeof(int));
 
     printf("Vvedite elementy massiva:\n");
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("X[%d] = ", i);
         scanf("%d", &X[i]);
     }
 
-    for(int i = 0; i < n/2; i++) {
+    for (int i = 0; i < n / 2; i++) {
         int temp = X[i];
-        X[i] = X[n-i-1];
-        X[n-i-1] = temp;
+        X[i] = X[n - i - 1];
+        X[n - i - 1] = temp;
     }
 
     printf("Obraschennyy massiv:\n");
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("X[%d] = %d\n", i, X[i]);
     }
+
+    free(X);
 
     return 0;
 }
@@ -602,33 +612,34 @@ Transportirovannaya matritsa:
 
 #### Код программы
 ```c
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
 int main() {
-    int A[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int A[3][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
     int n = 3;
 
     printf("Ishodnaya matritsa:\n");
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             printf("%d ", A[i][j]);
         }
         printf("\n");
     }
 
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         int sum = 0;
-        for(int j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++) {
             sum += A[i][j];
         }
         float avg = (float)sum / n;
-        A[i][0] = avg;
+        A[i][0] = (int)avg;
     }
 
     printf("\nMatritsa posle zameny:\n");
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            printf("%.0f ", (float)A[i][j]);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", A[i][j]);
         }
         printf("\n");
     }
