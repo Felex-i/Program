@@ -373,6 +373,357 @@ Rezultat: summa tsifr ne prevyshaet 10
 ![](img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-04-05%20193943.png)
 ---
 
+```markdown
+## Комплект 3 - Работа с массивами
+
+---
+
+### Задача 3.1
+
+#### Постановка задачи
+Для некоторого числового вектора X, введённого с клавиатуры, вычислить значения вектора Y = X · X (yi = xi · xi — поэлементно).
+
+#### Математическая модель
+\[Y[i] = X[i] \cdot X[i]\]
+
+#### Список идентификаторов
+
+| Имя | Тип | Описание |
+|---|---|---|
+| n | int | Размер вектора |
+| X[] | int[] | Исходный вектор |
+| Y[] | int[] | Результирующий вектор |
+| i | int | Счетчик цикла |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Vvedite razmer vektora: ");
+    scanf("%d", &n);
+
+    int X[n], Y[n];
+
+    printf("Vvedite elementy vektora X:\n");
+    for(int i = 0; i < n; i++) {
+        printf("X[%d] = ", i);
+        scanf("%d", &X[i]);
+    }
+
+    for(int i = 0; i < n; i++) {
+        Y[i] = X[i] * X[i];
+    }
+
+    printf("Vektor Y:\n");
+    for(int i = 0; i < n; i++) {
+        printf("Y[%d] = %d\n", i, Y[i]);
+    }
+
+    return 0;
+}
+```
+
+#### Результаты выполненной работы
+
+![Результат 3.1](img/task3-1.png)
+
+**Вывод программы:**
+```
+Vvedite razmer vektora: 2
+Vvedite elementy vektora X:
+X[0] = 1
+X[1] = 2
+Vektor Y:
+Y[0] = 1
+Y[1] = 4
+```
+
+---
+
+### Задача 3.2
+
+#### Постановка задачи
+Для некоторого числового массива X, введённого с клавиатуры поэлементно, изменить порядок элементов на обратный и распечатать результат на экране.
+
+#### Математическая модель
+\[X[i] \leftrightarrow X[n-i-1]\]
+
+#### Список идентификаторов
+
+| Имя | Тип | Описание |
+|---|---|---|
+| n | int | Размер массива |
+| X[] | int[] | Исходный массив |
+| temp | int | Временная переменная |
+| i | int | Счетчик цикла |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Vvedite razmer massiva: ");
+    scanf("%d", &n);
+
+    int X[n];
+
+    printf("Vvedite elementy massiva:\n");
+    for(int i = 0; i < n; i++) {
+        printf("X[%d] = ", i);
+        scanf("%d", &X[i]);
+    }
+
+    for(int i = 0; i < n/2; i++) {
+        int temp = X[i];
+        X[i] = X[n-i-1];
+        X[n-i-1] = temp;
+    }
+
+    printf("Obraschennyy massiv:\n");
+    for(int i = 0; i < n; i++) {
+        printf("X[%d] = %d\n", i, X[i]);
+    }
+
+    return 0;
+}
+```
+
+#### Результаты выполненной работы
+
+![Результат 3.2](img/task3-2.png)
+
+**Вывод программы:**
+```
+Vvedite razmer massiva: 5
+Vvedite elementy massiva:
+X[0] = 1
+X[1] = 2
+X[2] = 3
+X[3] = 4
+X[4] = 5
+Obraschennyy massiv:
+X[0] = 5
+X[1] = 4
+X[2] = 3
+X[3] = 2
+X[4] = 1
+```
+
+---
+
+### Задача 3.3
+
+#### Постановка задачи
+Транспонировать матрицу А
+
+\[A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}\]
+
+#### Математическая модель
+\[A_{ij}^T = A_{ji}\]
+
+#### Список идентификаторов
+
+| Имя | Тип | Описание |
+|---|---|---|
+| A[][] | int[3][3] | Исходная матрица |
+| AT[][] | int[3][3] | Транспонированная матрица |
+| i, j | int | Индексы |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+int main() {
+    int A[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int AT[3][3];
+
+    printf("Ishodnaya matritsa:\n");
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("%d ", A[i][j]);
+        }
+        printf("\n");
+    }
+
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            AT[j][i] = A[i][j];
+        }
+    }
+
+    printf("\nTransportirovannaya matritsa:\n");
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            printf("%d ", AT[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
+
+#### Результаты выполненной работы
+
+![Результат 3.3](img/task3-3.png)
+
+**Вывод программы:**
+```
+Ishodnaya matritsa:
+1 2 3
+4 5 6
+7 8 9
+
+Transportirovannaya matritsa:
+1 4 7
+2 5 8
+3 6 9
+```
+
+---
+
+### Задача 3.4
+
+#### Постановка задачи
+Преобразовать исходную матрицу так, чтобы первый элемент каждой строки был заменён средним арифметическим элементов этой строки.
+
+#### Математическая модель
+\[A_{i0} = \frac{1}{n} \sum_{j=0}^{n-1} A_{ij}\]
+
+#### Список идентификаторов
+
+| Имя | Тип | Описание |
+|---|---|---|
+| A[][] | int[3][3] | Исходная матрица |
+| sum | int | Сумма элементов строки |
+| avg | float | Среднее арифметическое |
+| i, j | int | Индексы |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+int main() {
+    int A[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int n = 3;
+
+    printf("Ishodnaya matritsa:\n");
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%d ", A[i][j]);
+        }
+        printf("\n");
+    }
+
+    for(int i = 0; i < n; i++) {
+        int sum = 0;
+        for(int j = 0; j < n; j++) {
+            sum += A[i][j];
+        }
+        float avg = (float)sum / n;
+        A[i][0] = avg;
+    }
+
+    printf("\nMatritsa posle zameny:\n");
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%.0f ", (float)A[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
+
+#### Результаты выполненной работы
+
+![Результат 3.4](img/task3-4.png)
+
+**Вывод программы:**
+```
+Ishodnaya matritsa:
+1 2 3
+4 5 6
+7 8 9
+
+Matritsa posle zameny:
+2 2 3
+5 5 6
+8 8 9
+```
+
+---
+
+### Задача 3.5
+
+#### Постановка задачи
+Реализовать самостоятельно алгоритм сортировки вставками (без создания своих функций, внутри функции main).
+
+#### Математическая модель
+Алгоритм последовательно вставляет каждый элемент на его правильное место в отсортированной части массива.
+
+#### Список идентификаторов
+
+| Имя | Тип | Описание |
+|---|---|---|
+| arr[] | int[N] | Массив для сортировки |
+| n | int | Размер массива |
+| i | int | Внешний счетчик |
+| j | int | Внутренний счетчик |
+| key | int | Временное хранение значения |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Ishodnyy massiv: ");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    for(int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        while(j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+
+    printf("Otsortirovannyy massiv: ");
+    for(int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+#### Результаты выполненной работы
+
+![Результат 3.5](img/task3-5.png)
+
+**Вывод программы:**
+```
+Ishodnyy massiv: 12 11 13 5 6
+Otsortirovannyy massiv: 5 6 11 12 13
+```
+```
+
 ## Информация о студенте
 **Ерохина Анастасия Андреевна**, ИВТ 1-1
 
