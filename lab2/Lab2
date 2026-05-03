@@ -42,7 +42,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
-![1](img/1.png)
+https://1.png
+
 text
 Enter a and b: 8 9
 17
@@ -84,6 +85,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://2.png
+
 text
 Enter a and b: 3 7
 3 7
@@ -121,6 +124,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://3.png
+
 text
 Enter a and b: 11 4
 11
@@ -172,6 +177,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://4.png
+
 text
 Enter n: 4
 2 3 4 5
@@ -222,6 +229,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://5.png
+
 text
 Enter n: 3
 10 20 30
@@ -255,6 +264,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://6.png
+
 text
 210 43 205 73
 (Примечание: вывод может зависеть от порядка байтов (little-endian/big-endian) вашей системы)
@@ -322,6 +333,8 @@ int main(void) {
     return 0;
 }
 Результаты выполненной работы
+https://7.png
+
 text
 1 2 3 4 5 6
 1 2 3
@@ -329,4 +342,3 @@ text
 Результат задачи 7
 Информация о студенте
 Ерохина Анастасия Андреевна, ИВТ 1-1
----
