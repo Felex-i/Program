@@ -1,0 +1,433 @@
+markdown
+# Лабораторная работа № 4
+
+## Тема
+Функции. Базовая работа со строками.
+
+**Студент:** Ерохина Анастасия Андреевна, ИВТ 1-1
+
+---
+
+## Комплект 1: Введение в функции
+
+### Задача 1.1: Факториал: цикл и рекурсия
+
+#### Постановка задачи
+Реализовать и сравнить два способа вычисления факториала: итеративный и рекурсивный.
+
+#### Список идентификаторов
+| Имя | Тип | Описание |
+|-----|-----|----------|
+| factorial_iter | unsigned long long (*)(int) | Итеративное вычисление факториала |
+| factorial_rec | unsigned long long (*)(int) | Рекурсивное вычисление факториала |
+| n | int | Входное число |
+
+#### Код программы
+```c
+#include <stdio.h>
+
+unsigned long long factorial_iter(int n) {
+    unsigned long long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+unsigned long long factorial_rec(int n) {
+    if (n <= 1) return 1;
+    return n * factorial_rec(n - 1);
+}
+
+int main(void) {
+    int test_values[] = {0, 1, 5, 7};
+    int num_tests = sizeof(test_values) / sizeof(test_values[0]);
+    
+    for (int i = 0; i < num_tests; i++) {
+        int n = test_values[i];
+        unsigned long long iter = factorial_iter(n);
+        unsigned long long rec = factorial_rec(n);
+        printf("n = %d: iter = %llu, rec = %llu\n", n, iter, rec);
+    }
+    return 0;
+}
+Результаты выполненной работы
+text
+n = 0: iter = 1, rec = 1
+n = 1: iter = 1, rec = 1
+n = 5: iter = 120, rec = 120
+n = 7: iter = 5040, rec = 5040
+https://img/11.png
+
+Задача 1.2: Обмен чётных/нечётных ячеек массива
+Постановка задачи
+Реализовать функцию, выполняющую попарный обмен соседних элементов массива (индексы 0↔1, 2↔3, ...).
+
+Список идентификаторов
+Имя	Тип	Описание
+swap_adjacent_pairs	void ()(int, size_t)	Функция обмена соседних пар
+print_array	void ()(const int, size_t)	Функция вывода массива
+Код программы
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap_adjacent_pairs(int *arr, size_t size) {
+    for (size_t i = 0; i + 1 < size; i += 2) {
+        int temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+    }
+}
+
+void print_array(const int *arr, size_t size) {
+    printf("[");
+    for (size_t i = 0; i < size; i++) {
+        printf("%d%s", arr[i], (i < size - 1) ? ", " : "");
+    }
+    printf("]");
+}
+
+int main(void) {
+    size_t size = 12;
+    int *arr = malloc(size * sizeof(int));
+    
+    for (size_t i = 0; i < size; i++) {
+        arr[i] = (int)(i + 1);
+    }
+    
+    printf("Исходный массив: ");
+    print_array(arr, size);
+    printf("\n");
+    
+    swap_adjacent_pairs(arr, size);
+    
+    printf("После обмена:    ");
+    print_array(arr, size);
+    printf("\n");
+    
+    free(arr);
+    return 0;
+}
+Результаты выполненной работы
+text
+Исходный массив: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+После обмена:    [2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11]
+https://img/12.png
+
+Задача 1.3: Набор функций для матрицы double
+Постановка задачи
+Реализовать функции выделения, заполнения, печати и освобождения двумерного динамического массива.
+
+Список идентификаторов
+Имя	Тип	Описание
+matrix_alloc	double** (*)(size_t, size_t)	Выделение памяти
+matrix_free	void (*)(double**, size_t)	Освобождение памяти
+matrix_fill	void ()(double**, size_t, size_t, const double)	Заполнение
+matrix_print	void (*)(double**, size_t, size_t)	Печать
+Код программы
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+double** matrix_alloc(size_t rows, size_t cols) {
+    double **m = malloc(rows * sizeof(double*));
+    if (!m) return NULL;
+    
+    for (size_t i = 0; i < rows; i++) {
+        m[i] = malloc(cols * sizeof(double));
+        if (!m[i]) {
+            for (size_t j = 0; j < i; j++) free(m[j]);
+            free(m);
+            return NULL;
+        }
+    }
+    return m;
+}
+
+void matrix_free(double **m, size_t rows) {
+    if (!m) return;
+    for (size_t i = 0; i < rows; i++) free(m[i]);
+    free(m);
+}
+
+void matrix_fill(double **m, size_t rows, size_t cols, const double *values) {
+    for (size_t i = 0; i < rows; i++)
+        for (size_t j = 0; j < cols; j++)
+            m[i][j] = values[i * cols + j];
+}
+
+void matrix_print(double **m, size_t rows, size_t cols) {
+    for (size_t i = 0; i < rows; i++) {
+        for (size_t j = 0; j < cols; j++)
+            printf("%6.2f ", m[i][j]);
+        printf("\n");
+    }
+}
+
+int main(void) {
+    size_t rows = 2, cols = 3;
+    double values[] = {1, 2, 3, 4, 5, 6};
+    
+    double **m = matrix_alloc(rows, cols);
+    if (!m) return 1;
+    
+    matrix_fill(m, rows, cols, values);
+    printf("Матрица %zux%zu:\n", rows, cols);
+    matrix_print(m, rows, cols);
+    
+    matrix_free(m, rows);
+    return 0;
+}
+Результаты выполненной работы
+text
+Матрица 2x3:
+  1.00   2.00   3.00 
+  4.00   5.00   6.00 
+https://img/13.png
+
+Задача 1.4: Смешанное произведение трёх векторов в 3D
+Постановка задачи
+Вычислить смешанное произведение трёх векторов через скалярное и векторное произведения.
+
+Математическая модель
+Векторное произведение: b × c = (b_y·c_z - b_z·c_y, b_z·c_x - b_x·c_z, b_x·c_y - b_y·c_x)
+
+Скалярное произведение: a·b = a_x·b_x + a_y·b_y + a_z·b_z
+
+Смешанное произведение: [a, b, c] = a·(b×c)
+
+Список идентификаторов
+Имя	Тип	Описание
+cross3	void (*)(const double[3], const double[3], double[3])	Векторное произведение
+dot3	double (*)(const double[3], const double[3])	Скалярное произведение
+triple3	double (*)(const double[3], const double[3], const double[3])	Смешанное произведение
+Код программы
+c
+#include <stdio.h>
+
+void cross3(const double a[3], const double b[3], double out[3]) {
+    out[0] = a[1] * b[2] - a[2] * b[1];
+    out[1] = a[2] * b[0] - a[0] * b[2];
+    out[2] = a[0] * b[1] - a[1] * b[0];
+}
+
+double dot3(const double a[3], const double b[3]) {
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+double triple3(const double a[3], const double b[3], const double c[3]) {
+    double tmp[3];
+    cross3(b, c, tmp);
+    return dot3(a, tmp);
+}
+
+void print_vector(const char *name, const double v[3]) {
+    printf("%s = (%.2f, %.2f, %.2f)\n", name, v[0], v[1], v[2]);
+}
+
+int main(void) {
+    double a[3] = {1, 0, 0};
+    double b[3] = {0, 1, 0};
+    double c[3] = {0, 0, 1};
+    
+    print_vector("a", a);
+    print_vector("b", b);
+    print_vector("c", c);
+    
+    double cross_ab[3];
+    cross3(a, b, cross_ab);
+    printf("a × b = (%.2f, %.2f, %.2f)\n", cross_ab[0], cross_ab[1], cross_ab[2]);
+    
+    printf("a · b = %.2f\n", dot3(a, b));
+    printf("Смешанное произведение [a, b, c] = %.2f\n", triple3(a, b, c));
+    
+    return 0;
+}
+Результаты выполненной работы
+text
+a = (1.00, 0.00, 0.00)
+b = (0.00, 1.00, 0.00)
+c = (0.00, 0.00, 1.00)
+a × b = (0.00, 0.00, 1.00)
+a · b = 0.00
+Смешанное произведение [a, b, c] = 1.00
+https://img/14.png
+
+Комплект 2: Базовые операции со строками
+Задача 2.1: Базовые строковые операции
+Постановка задачи
+Выполнить базовые операции с C-строками: подсчёт длины (3 способами), копирование, конкатенацию, сравнение, перевод регистра.
+
+Список идентификаторов
+Имя	Тип	Описание
+my_string	char[]	Исходная строка
+len1, len2	int	Ручной подсчёт длины
+len3	size_t	Длина через strlen
+Код программы
+c
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(void) {
+    #define MY_SIZE 32
+    char my_string[MY_SIZE] = "HelloC";
+    
+    // Шаг 1. Ручной подсчёт по индексам
+    int len1 = 0;
+    for (int i = 0; my_string[i] != '\0'; i++) len1++;
+    printf("По индексам: %d\n", len1);
+    
+    // Шаг 2. Ручной подсчёт по указателю
+    char *p = my_string;
+    int len2 = 0;
+    while (*p != '\0') { len2++; p++; }
+    printf("По указателю: %d\n", len2);
+    
+    // Шаг 3. Библиотечная функция
+    size_t len3 = strlen(my_string);
+    printf("strlen: %zu\n", len3);
+    
+    // Шаг 4. Копирование
+    char copy[MY_SIZE];
+    for (int i = 0; i <= len1; i++) copy[i] = my_string[i];
+    printf("Копия: \"%s\"\n", copy);
+    
+    // Шаг 5. Конкатенация
+    char str1[] = "Hello", str2[] = "World", concat[MY_SIZE * 2];
+    int idx = 0;
+    for (int i = 0; str1[i]; i++) concat[idx++] = str1[i];
+    for (int i = 0; str2[i]; i++) concat[idx++] = str2[i];
+    concat[idx] = '\0';
+    printf("Конкатенация: \"%s\"\n", concat);
+    
+    // Шаг 6. Сравнение
+    char cmp1[] = "apple", cmp2[] = "banana";
+    int cmp = strcmp(cmp1, cmp2);
+    printf("Сравнение \"%s\" и \"%s\": %d\n", cmp1, cmp2, cmp);
+    
+    // Шаг 7. Перевод регистра
+    char mixed[] = "HeLlO WoRlD! 123";
+    char lower[MY_SIZE], upper[MY_SIZE];
+    for (int i = 0; mixed[i]; i++) {
+        unsigned char uc = (unsigned char)mixed[i];
+        lower[i] = tolower(uc);
+        upper[i] = toupper(uc);
+    }
+    lower[strlen(mixed)] = upper[strlen(mixed)] = '\0';
+    printf("Нижний: \"%s\"\nВерхний: \"%s\"\n", lower, upper);
+    
+    return 0;
+}
+Результаты выполненной работы
+text
+По индексам: 6
+По указателю: 6
+strlen: 6
+Копия: "HelloC"
+Конкатенация: "HelloWorld"
+Сравнение "apple" и "banana": -1
+Нижний: "hello world! 123"
+Верхний: "HELLO WORLD! 123"
+https://img/15.png
+
+Задача 2.2: Конвертация строк в числа
+Постановка задачи
+Безопасно преобразовывать строки в int и double с использованием strtol и strtod, с проверкой ошибок.
+
+Список идентификаторов
+Имя	Тип	Описание
+strtol	function	Преобразование в long
+strtod	function	Преобразование в double
+errno	variable	Код ошибки
+endptr	char*	Указатель на остаток строки
+Код программы
+c
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+
+int main(void) {
+    // Преобразование в целое число
+    char int_str[] = "  -42  ";
+    errno = 0;
+    char *endptr;
+    long int_val = strtol(int_str, &endptr, 10);
+    
+    printf("Целое: \"%s\" -> %ld\n", int_str, int_val);
+    if (endptr == int_str)
+        printf("  Ошибка: нет цифр\n");
+    else if (errno == ERANGE)
+        printf("  Ошибка: вне диапазона\n");
+    
+    // Преобразование в вещественное число
+    char double_str[] = "  3.14159  ";
+    errno = 0;
+    double double_val = strtod(double_str, &endptr);
+    
+    printf("Вещественное: \"%s\" -> %f\n", double_str, double_val);
+    if (endptr == double_str)
+        printf("  Ошибка: нет цифр\n");
+    else if (errno == ERANGE)
+        printf("  Ошибка: вне диапазона\n");
+    
+    return 0;
+}
+Результаты выполненной работы
+text
+Целое: "  -42  " -> -42
+Вещественное: "  3.14159  " -> 3.141590
+https://img/16.png
+
+Задача 2.3: Классификация символов
+Постановка задачи
+Классифицировать каждый символ строки с помощью функций из ctype.h (isdigit, isalpha, isspace, ispunct).
+
+Список идентификаторов
+Имя	Тип	Описание
+isdigit	function	Проверка на цифру
+isalpha	function	Проверка на букву
+isspace	function	Проверка на пробел
+ispunct	function	Проверка на пунктуацию
+Код программы
+c
+#include <stdio.h>
+#include <ctype.h>
+
+int main(void) {
+    char test_str[] = "A7, b9! \t";
+    printf("Анализ строки: \"%s\"\n\n", test_str);
+    
+    for (int i = 0; test_str[i] != '\0'; i++) {
+        unsigned char c = (unsigned char)test_str[i];
+        printf("'%c' (код %d): ", (c >= 32 && c <= 126) ? c : '?', c);
+        
+        int first = 1;
+        if (isdigit(c)) { printf("цифра"); first = 0; }
+        if (isalpha(c)) { printf("%sбуква", first ? "" : ", "); first = 0; }
+        if (isspace(c)) { printf("%sпробел", first ? "" : ", "); first = 0; }
+        if (ispunct(c)) { printf("%sпунктуация", first ? "" : ", "); first = 0; }
+        if (first) printf("другой");
+        printf("\n");
+    }
+    
+    return 0;
+}
+Результаты выполненной работы
+text
+Анализ строки: "A7, b9! 	"
+
+'A' (код 65): буква
+'7' (код 55): цифра
+',' (код 44): пунктуация
+' ' (код 32): пробел
+'b' (код 98): буква
+'9' (код 57): цифра
+'!' (код 33): пунктуация
+' ' (код 32): пробел
+'?' (код 9): пробел
+https://img/17.png
+
+Информация о студенте
+Ерохина Анастасия Андреевна, ИВТ 1-1
