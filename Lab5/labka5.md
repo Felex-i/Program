@@ -82,9 +82,14 @@ task01_make_students/
 | find_best_student | int (*)(const Student[], int) | Поиск студента с max avg |
 
 #### Код программы
+```
+mkdir -p ~/05-lab-build-make-meson
+cd ~/05-lab-build-make-meson
 
-**students.h**
-```c
+mkdir -p task01_make_students
+cd task01_make_students
+
+cat > students.h << 'EOF'
 #ifndef STUDENTS_H
 #define STUDENTS_H
 
@@ -100,10 +105,9 @@ int load_students(const char *filename, Student arr[], int max_count);
 int find_best_student(const Student arr[], int count);
 
 #endif
-```
+EOF
 
-**students.c**
-```c
+cat > students.c << 'EOF'
 #include "students.h"
 #include <stdio.h>
 
@@ -138,10 +142,9 @@ int find_best_student(const Student arr[], int count) {
     }
     return best;
 }
-```
+EOF
 
-**main.c**
-```c
+cat > main.c << 'EOF'
 #include "students.h"
 #include <stdio.h>
 
@@ -167,18 +170,16 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-```
+EOF
 
-**students.txt**
-```
+cat > students.txt << 'EOF'
 Ivan,5,4,5
 Olga,5,5,5
 Petr,3,4,4
 Nina,4,4,5
-```
+EOF
 
-**Makefile**
-```makefile
+cat > Makefile << 'EOF'
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 TARGET = task01_students
@@ -194,19 +195,11 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
-```
-
-#### Команды сборки и запуска
-```bash
+EOF
 make
 make run
-make clean
-```
 
-#### Ожидаемый результат
-```
-Count: 4
-Best: Olga (avg=5.00)
+cd ..
 ```
 ![Скриншот 1](img/25.png)
 
