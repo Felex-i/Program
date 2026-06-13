@@ -11,9 +11,9 @@
 
 ### Системы сборки
 
-**GNU Make** – система автоматизации сборки, использующая файл `Makefile` с правилами, целями и зависимостями. Команды рецепта должны начинаться с символа табуляции.
+**GNU Make** - система автоматизации сборки, использующая файл `Makefile` с правилами, целями и зависимостями. Команды рецепта должны начинаться с символа табуляции.
 
-**Meson** – современная система сборки с декларативным DSL. Работает в два этапа: настройка (`meson setup build`) и компиляция (`meson compile -C build`). Использует отдельный каталог сборки.
+**Meson** - современная система сборки с декларативным DSL. Работает в два этапа: настройка (`meson setup build`) и компиляция (`meson compile -C build`). Использует отдельный каталог сборки.
 
 ### Структура проектов
 
@@ -27,45 +27,64 @@
 ```bash
 pacman -Syu
 pacman -S --needed make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-ninja
-WSL2 (Ubuntu 24.04+) / Linux
-bash
+```
+
+### WSL2 (Ubuntu 24.04+) / Linux
+```bash
 sudo apt update
 sudo apt install -y build-essential meson ninja-build
-Проверка установки
-bash
+```
+
+### Проверка установки
+```bash
 gcc --version
 make --version
 meson --version
 ninja --version
-Структура лабораторной работы
-text
+```
+
+---
+
+## Структура лабораторной работы
+
+```
 05-lab-build-make-meson/
 ├── task01_make_students/
 ├── task02_make_html_title/
 ├── task03_meson_matrix_stats/
 └── task04_meson_log_stats/
-Комплект 1: Проекты с GNU Make
-Задача 1.1: Лучший студент по среднему баллу (task01_make_students)
-Постановка задачи
+```
+
+---
+
+## Комплект 1: Проекты с GNU Make
+
+### Задача 1.1: Лучший студент по среднему баллу (task01_make_students)
+
+#### Постановка задачи
 Программа читает текстовый файл со списком студентов и оценок, вычисляет средний балл каждого студента и выводит имя студента с максимальным средним баллом.
 
-Структура проекта
-text
+#### Структура проекта
+```
 task01_make_students/
 ├── main.c
 ├── students.c
 ├── students.h
 ├── students.txt
 └── Makefile
-Список идентификаторов
-Имя	Тип	Описание
-Student	struct	Структура студента (name, score1, score2, score3, avg)
-load_students	int ()(const char, Student[], int)	Загрузка данных из файла
-find_best_student	int (*)(const Student[], int)	Поиск студента с max avg
-Код программы
-students.h
+```
 
-c
+#### Список идентификаторов
+| Имя | Тип | Описание |
+|-----|-----|----------|
+| Student | struct | Структура студента (name, score1, score2, score3, avg) |
+| load_students | int (*)(const char*, Student[], int) | Загрузка данных из файла |
+| find_best_student | int (*)(const Student[], int) | Поиск студента с max avg |
+
+#### Код программы
+
+**students.h**
+```c
 #ifndef STUDENTS_H
 #define STUDENTS_H
 
@@ -81,9 +100,10 @@ int load_students(const char *filename, Student arr[], int max_count);
 int find_best_student(const Student arr[], int count);
 
 #endif
-students.c
+```
 
-c
+**students.c**
+```c
 #include "students.h"
 #include <stdio.h>
 
@@ -118,9 +138,10 @@ int find_best_student(const Student arr[], int count) {
     }
     return best;
 }
-main.c
+```
 
-c
+**main.c**
+```c
 #include "students.h"
 #include <stdio.h>
 
@@ -146,16 +167,18 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-students.txt
+```
 
-text
+**students.txt**
+```
 Ivan,5,4,5
 Olga,5,5,5
 Petr,3,4,4
 Nina,4,4,5
-Makefile
+```
 
-makefile
+**Makefile**
+```makefile
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 TARGET = task01_students
@@ -171,37 +194,49 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
-Команды сборки и запуска
-bash
+```
+
+#### Команды сборки и запуска
+```bash
 make
 make run
 make clean
-Ожидаемый результат
-text
+```
+
+#### Ожидаемый результат
+```
 Count: 4
 Best: Olga (avg=5.00)
-https://img/25.png
+```
+![Скриншот 1](img/25.png)
 
-Задача 1.2: Извлечение <title> из HTML (task02_make_html_title)
-Постановка задачи
-Программа читает локальный HTML-файл и извлекает текст между тегами <title> и </title>. Добавлена отдельная цель debug для сборки с флагом -g.
+---
 
-Структура проекта
-text
+### Задача 1.2: Извлечение <title> из HTML (task02_make_html_title)
+
+#### Постановка задачи
+Программа читает локальный HTML-файл и извлекает текст между тегами `<title>` и `</title>`. Добавлена отдельная цель `debug` для сборки с флагом `-g`.
+
+#### Структура проекта
+```
 task02_make_html_title/
 ├── main.c
 ├── html_title.c
 ├── html_title.h
 ├── page.html
 └── Makefile
-Список идентификаторов
-Имя	Тип	Описание
-load_text_file	int ()(const char, char*, size_t)	Загрузка файла в буфер
-extract_title	int ()(const char, char*, size_t)	Извлечение заголовка
-Код программы
-html_title.h
+```
 
-c
+#### Список идентификаторов
+| Имя | Тип | Описание |
+|-----|-----|----------|
+| load_text_file | int (*)(const char*, char*, size_t) | Загрузка файла в буфер |
+| extract_title | int (*)(const char*, char*, size_t) | Извлечение заголовка |
+
+#### Код программы
+
+**html_title.h**
+```c
 #ifndef HTML_TITLE_H
 #define HTML_TITLE_H
 
@@ -211,9 +246,10 @@ int load_text_file(const char *filename, char *buffer, size_t buffer_size);
 int extract_title(const char *html, char *title, size_t title_size);
 
 #endif
-html_title.c
+```
 
-c
+**html_title.c**
+```c
 #include "html_title.h"
 #include <stdio.h>
 #include <string.h>
@@ -260,9 +296,10 @@ int extract_title(const char *html, char *title, size_t title_size) {
     title[len] = '\0';
     return 0;
 }
-main.c
+```
 
-c
+**main.c**
+```c
 #include "html_title.h"
 #include <stdio.h>
 
@@ -288,9 +325,10 @@ int main(int argc, char *argv[]) {
     printf("Title: %s\n", title);
     return 0;
 }
-page.html
+```
 
-html
+**page.html**
+```html
 <!doctype html>
 <html>
 <head>
@@ -301,9 +339,10 @@ html
     <p>Training file for task02.</p>
 </body>
 </html>
-Makefile
+```
 
-makefile
+**Makefile**
+```makefile
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 TARGET = task02_title
@@ -319,8 +358,10 @@ debug:
 
 clean:
 	rm -f $(TARGET)
-Команды сборки и запуска
-bash
+```
+
+#### Команды сборки и запуска
+```bash
 make
 ./task02_title page.html
 
@@ -328,34 +369,45 @@ make debug
 ./task02_title page.html
 
 make clean
-Ожидаемый результат
-text
-Title: Simple Demo Page
-https://img/26.png
+```
 
-Комплект 2: Проекты с Meson
-Задача 2.1: Статистика матрицы 2x2 (task03_meson_matrix_stats)
-Постановка задачи
+#### Ожидаемый результат
+```
+Title: Simple Demo Page
+```
+![Скриншот 2](img/1b.png)
+
+---
+
+## Комплект 2: Проекты с Meson
+
+### Задача 2.1: Статистика матрицы 2x2 (task03_meson_matrix_stats)
+
+#### Постановка задачи
 Программа читает матрицу 2x2 из текстового файла и вычисляет сумму элементов, след и определитель.
 
-Структура проекта
-text
+#### Структура проекта
+```
 task03_meson_matrix_stats/
 ├── main.c
 ├── matrix_stats.c
 ├── matrix_stats.h
 ├── matrix.txt
 └── meson.build
-Список идентификаторов
-Имя	Тип	Описание
-read_matrix_2x2	int ()(const char, int[2][2])	Чтение матрицы из файла
-matrix_sum_2x2	int (*)(const int[2][2])	Сумма всех элементов
-matrix_trace_2x2	int (*)(const int[2][2])	След матрицы
-matrix_det_2x2	int (*)(const int[2][2])	Определитель матрицы
-Код программы
-matrix_stats.h
+```
 
-c
+#### Список идентификаторов
+| Имя | Тип | Описание |
+|-----|-----|----------|
+| read_matrix_2x2 | int (*)(const char*, int[2][2]) | Чтение матрицы из файла |
+| matrix_sum_2x2 | int (*)(const int[2][2]) | Сумма всех элементов |
+| matrix_trace_2x2 | int (*)(const int[2][2]) | След матрицы |
+| matrix_det_2x2 | int (*)(const int[2][2]) | Определитель матрицы |
+
+#### Код программы
+
+**matrix_stats.h**
+```c
 #ifndef MATRIX_STATS_H
 #define MATRIX_STATS_H
 
@@ -365,9 +417,10 @@ int matrix_trace_2x2(const int m[2][2]);
 int matrix_det_2x2(const int m[2][2]);
 
 #endif
-matrix_stats.c
+```
 
-c
+**matrix_stats.c**
+```c
 #include "matrix_stats.h"
 #include <stdio.h>
 
@@ -399,9 +452,10 @@ int matrix_trace_2x2(const int m[2][2]) {
 int matrix_det_2x2(const int m[2][2]) {
     return m[0][0] * m[1][1] - m[0][1] * m[1][0];
 }
-main.c
+```
 
-c
+**main.c**
+```c
 #include "matrix_stats.h"
 #include <stdio.h>
 
@@ -424,50 +478,64 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-matrix.txt
+```
 
-text
+**matrix.txt**
+```
 1 2 3 4
-meson.build
+```
 
-meson
+**meson.build**
+```meson
 project('task03_meson_matrix_stats', 'c',
     default_options : ['c_std=c11', 'warning_level=2'])
 
 executable('task03_matrix_v2', ['main.c', 'matrix_stats.c'])
-Команды сборки и запуска
-bash
+```
+
+#### Команды сборки и запуска
+```bash
 rm -rf build
 meson setup build
 meson compile -C build
 ./build/task03_matrix_v2 matrix.txt
-Ожидаемый результат
-text
+```
+
+#### Ожидаемый результат
+```
 Sum: 10
 Trace: 5
 Det: -2
-https://img/27.png
+```
+![Скриншот 3](img/2b.png)
 
-Задача 2.2: Подсчёт INFO/WARN/ERROR (task04_meson_log_stats)
-Постановка задачи
-Программа читает текстовый лог-файл и подсчитывает количество строк с метками INFO, WARN и ERROR. В одном meson.build объявлены две исполняемые цели.
+---
 
-Структура проекта
-text
+### Задача 2.2: Подсчёт INFO/WARN/ERROR (task04_meson_log_stats)
+
+#### Постановка задачи
+Программа читает текстовый лог-файл и подсчитывает количество строк с метками INFO, WARN и ERROR. В одном `meson.build` объявлены две исполняемые цели.
+
+#### Структура проекта
+```
 task04_meson_log_stats/
 ├── main.c
 ├── log_stats.c
 ├── log_stats.h
 ├── app.log
 └── meson.build
-Список идентификаторов
-Имя	Тип	Описание
-LogStats	struct	Структура со счётчиками (info_count, warn_count, error_count)
-analyze_log_file	int ()(const char, LogStats*)	Анализ лог-файла
-Код программы
-log_stats.h
+```
 
-c
+#### Список идентификаторов
+| Имя | Тип | Описание |
+|-----|-----|----------|
+| LogStats | struct | Структура со счётчиками (info_count, warn_count, error_count) |
+| analyze_log_file | int (*)(const char*, LogStats*) | Анализ лог-файла |
+
+#### Код программы
+
+**log_stats.h**
+```c
 #ifndef LOG_STATS_H
 #define LOG_STATS_H
 
@@ -480,9 +548,10 @@ typedef struct {
 int analyze_log_file(const char *filename, LogStats *stats);
 
 #endif
-log_stats.c
+```
 
-c
+**log_stats.c**
+```c
 #include "log_stats.h"
 #include <stdio.h>
 #include <string.h>
@@ -515,9 +584,10 @@ int analyze_log_file(const char *filename, LogStats *stats) {
     fclose(f);
     return 0;
 }
-main.c
+```
 
-c
+**main.c**
+```c
 #include "log_stats.h"
 #include <stdio.h>
 
@@ -540,51 +610,65 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-app.log
+```
 
-text
+**app.log**
+```
 [INFO] Application started
 [INFO] Loading configuration
 [WARN] Deprecated option used
 [ERROR] Connection refused
 [INFO] Retry in 5 seconds
 [WARN] Timeout reached
-meson.build
+```
 
-meson
+**meson.build**
+```meson
 project('task04_meson_log_stats', 'c',
     default_options : ['c_std=c11', 'warning_level=2'])
 
 executable('task04_logstats', ['main.c', 'log_stats.c'])
 executable('task04_logstats_copy', ['main.c', 'log_stats.c'])
-Команды сборки и запуска
-bash
+```
+
+#### Команды сборки и запуска
+```bash
 rm -rf build
 meson setup build
 meson compile -C build
 ./build/task04_logstats app.log
 ./build/task04_logstats_copy app.log
-Ожидаемый результат
-text
+```
+
+#### Ожидаемый результат
+```
 INFO: 3
 WARN: 2
 ERROR: 1
-https://img/28.png
+```
+![Скриншот 4](img/3b.png)
 
-Мини-шпаргалка по командам
-GNU Make
-Команда	Действие
-make	Собрать проект по основной цели
-make run	Собрать и запустить задачу 1.1
-make debug	Собрать задачу 1.2 с отладочной информацией
-make clean	Удалить результаты сборки
-Meson
-Команда	Действие
-meson setup build	Создать и настроить каталог сборки
-meson compile -C build	Выполнить сборку
-rm -rf build	Удалить старый каталог сборки
-Финальный чек-лист сдачи
-Создан корневой каталог 05-lab-build-make-meson
+---
 
-Информация о студенте
+## Мини-шпаргалка по командам
+
+### GNU Make
+| Команда | Действие |
+|---------|----------|
+| `make` | Собрать проект по основной цели |
+| `make run` | Собрать и запустить задачу 1.1 |
+| `make debug` | Собрать задачу 1.2 с отладочной информацией |
+| `make clean` | Удалить результаты сборки |
+
+### Meson
+| Команда | Действие |
+|---------|----------|
+| `meson setup build` | Создать и настроить каталог сборки |
+| `meson compile -C build` | Выполнить сборку |
+| `rm -rf build` | Удалить старый каталог сборки |
+
+---
+
+**Информация о студенте**  
 Ерохина Анастасия Андреевна, ИВТ 1-1
+```
