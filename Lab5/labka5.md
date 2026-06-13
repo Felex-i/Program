@@ -201,7 +201,7 @@ make run
 
 cd ..
 ```
-![Скриншот 1](img/25.png)
+![Скриншот 1](img/0b.png)
 
 ---
 
@@ -228,8 +228,12 @@ task02_make_html_title/
 
 #### Код программы
 
-**html_title.h**
-```c
+```
+cd ~/05-lab-build-make-meson
+mkdir -p task02_make_html_title
+cd task02_make_html_title
+
+cat > html_title.h << 'EOF'
 #ifndef HTML_TITLE_H
 #define HTML_TITLE_H
 
@@ -239,10 +243,9 @@ int load_text_file(const char *filename, char *buffer, size_t buffer_size);
 int extract_title(const char *html, char *title, size_t title_size);
 
 #endif
-```
+EOF
 
-**html_title.c**
-```c
+cat > html_title.c << 'EOF'
 #include "html_title.h"
 #include <stdio.h>
 #include <string.h>
@@ -289,10 +292,9 @@ int extract_title(const char *html, char *title, size_t title_size) {
     title[len] = '\0';
     return 0;
 }
-```
+EOF
 
-**main.c**
-```c
+cat > main.c << 'EOF'
 #include "html_title.h"
 #include <stdio.h>
 
@@ -318,10 +320,9 @@ int main(int argc, char *argv[]) {
     printf("Title: %s\n", title);
     return 0;
 }
-```
+EOF
 
-**page.html**
-```html
+cat > page.html << 'EOF'
 <!doctype html>
 <html>
 <head>
@@ -332,10 +333,9 @@ int main(int argc, char *argv[]) {
     <p>Training file for task02.</p>
 </body>
 </html>
-```
+EOF
 
-**Makefile**
-```makefile
+cat > Makefile << 'EOF'
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -pedantic
 TARGET = task02_title
@@ -351,17 +351,12 @@ debug:
 
 clean:
 	rm -f $(TARGET)
-```
+EOF
 
-#### Команды сборки и запуска
-```bash
 make
 ./task02_title page.html
 
-make debug
-./task02_title page.html
-
-make clean
+cd ..
 ```
 
 #### Ожидаемый результат
@@ -399,8 +394,12 @@ task03_meson_matrix_stats/
 
 #### Код программы
 
-**matrix_stats.h**
-```c
+```
+cd ~/05-lab-build-make-meson
+mkdir -p task03_meson_matrix_stats
+cd task03_meson_matrix_stats
+
+cat > matrix_stats.h << 'EOF'
 #ifndef MATRIX_STATS_H
 #define MATRIX_STATS_H
 
@@ -410,10 +409,9 @@ int matrix_trace_2x2(const int m[2][2]);
 int matrix_det_2x2(const int m[2][2]);
 
 #endif
-```
+EOF
 
-**matrix_stats.c**
-```c
+cat > matrix_stats.c << 'EOF'
 #include "matrix_stats.h"
 #include <stdio.h>
 
@@ -445,10 +443,9 @@ int matrix_trace_2x2(const int m[2][2]) {
 int matrix_det_2x2(const int m[2][2]) {
     return m[0][0] * m[1][1] - m[0][1] * m[1][0];
 }
-```
+EOF
 
-**main.c**
-```c
+cat > main.c << 'EOF'
 #include "matrix_stats.h"
 #include <stdio.h>
 
@@ -471,27 +468,25 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-```
+EOF
 
-**matrix.txt**
-```
+cat > matrix.txt << 'EOF'
 1 2 3 4
-```
+EOF
 
-**meson.build**
-```meson
+cat > meson.build << 'EOF'
 project('task03_meson_matrix_stats', 'c',
     default_options : ['c_std=c11', 'warning_level=2'])
 
 executable('task03_matrix_v2', ['main.c', 'matrix_stats.c'])
-```
+EOF
 
-#### Команды сборки и запуска
-```bash
 rm -rf build
 meson setup build
 meson compile -C build
 ./build/task03_matrix_v2 matrix.txt
+
+cd ..
 ```
 
 #### Ожидаемый результат
@@ -526,9 +521,12 @@ task04_meson_log_stats/
 | analyze_log_file | int (*)(const char*, LogStats*) | Анализ лог-файла |
 
 #### Код программы
+```
+cd ~/05-lab-build-make-meson
+mkdir -p task04_meson_log_stats
+cd task04_meson_log_stats
 
-**log_stats.h**
-```c
+cat > log_stats.h << 'EOF'
 #ifndef LOG_STATS_H
 #define LOG_STATS_H
 
@@ -541,10 +539,9 @@ typedef struct {
 int analyze_log_file(const char *filename, LogStats *stats);
 
 #endif
-```
+EOF
 
-**log_stats.c**
-```c
+cat > log_stats.c << 'EOF'
 #include "log_stats.h"
 #include <stdio.h>
 #include <string.h>
@@ -577,10 +574,9 @@ int analyze_log_file(const char *filename, LogStats *stats) {
     fclose(f);
     return 0;
 }
-```
+EOF
 
-**main.c**
-```c
+cat > main.c << 'EOF'
 #include "log_stats.h"
 #include <stdio.h>
 
@@ -603,34 +599,33 @@ int main(int argc, char *argv[]) {
     
     return 0;
 }
-```
+EOF
 
-**app.log**
-```
+cat > app.log << 'EOF'
 [INFO] Application started
 [INFO] Loading configuration
 [WARN] Deprecated option used
 [ERROR] Connection refused
 [INFO] Retry in 5 seconds
 [WARN] Timeout reached
-```
+EOF
 
-**meson.build**
-```meson
+cat > meson.build << 'EOF'
 project('task04_meson_log_stats', 'c',
     default_options : ['c_std=c11', 'warning_level=2'])
 
 executable('task04_logstats', ['main.c', 'log_stats.c'])
 executable('task04_logstats_copy', ['main.c', 'log_stats.c'])
-```
+EOF
 
-#### Команды сборки и запуска
-```bash
+# Сборка Meson
 rm -rf build
 meson setup build
 meson compile -C build
 ./build/task04_logstats app.log
 ./build/task04_logstats_copy app.log
+
+cd ..
 ```
 
 #### Ожидаемый результат
