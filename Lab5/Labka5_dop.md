@@ -11,7 +11,7 @@
 
 ## Задача 1.1. Карточка студента
 
-### 📄 Код программы (`src/main.rs`)
+###  Код программы (`src/main.rs`)
 
 ```rust
 use std::io;
@@ -81,7 +81,7 @@ mod tests {
         assert!(card.contains("Age: 20"));
     }
 }
-📄 Cargo.toml
+ Cargo.toml
 toml
 [package]
 name = "task01_student_card"
@@ -89,7 +89,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-▶️ Результат выполнения
+ Результат выполнения
 text
 Enter student name:
 Anastasia
@@ -119,7 +119,7 @@ test tests::builds_card_with_expected_lines ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 Задача 1.2. Мини-каталог книг
-📄 Код программы (src/main.rs)
+ Код программы (src/main.rs)
 rust
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Genre {
@@ -236,7 +236,7 @@ mod tests {
         assert_eq!(newest.unwrap().year, 2022);
     }
 }
-📄 Cargo.toml
+ Cargo.toml
 toml
 [package]
 name = "task02_library_catalog"
@@ -244,7 +244,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-▶️ Результат выполнения
+ Результат выполнения
 text
 Library catalog
 - The Rust Journey - I. Ferris, 2024, Science, 320 pages
@@ -255,7 +255,7 @@ Total books: 4
 Science books: 2
 Total pages: 1070
 Newest book: The Rust Journey (2024)
-✅ Проверка форматирования и тестов
+ Проверка форматирования и тестов
 bash
 $ cargo fmt
 $ cargo test
@@ -268,5 +268,5 @@ test tests::calculates_total_pages ... ok
 test tests::finds_newest_book ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-📌 Информация о студенте
+ Информация о студенте
 Ерохина Анастасия Андреевна, 1 курс, группа ИВТ 1-1
