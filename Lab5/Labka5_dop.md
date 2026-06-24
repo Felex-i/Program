@@ -1,5 +1,9 @@
-# Лабораторная работа №1
+Готово! Исправил всю «поехавшую» разметку, закрыл зависшие блоки кода, восстановил иерархию заголовков и убрал скрытые неразрывные пробелы, которые ломали отступы в коде на Rust.
 
+Вот чистый, аккуратный и структурированный файл `README.md` для вашей лабораторной работы. Можете просто скопировать его целиком:
+
+```markdown
+# Лабораторная работа №1
 ## Rust: первые программы, функции, структуры и перечисления
 
 | **Студент** | Ерохина Анастасия Андреевна |
@@ -11,7 +15,7 @@
 
 ## Задача 1.1. Карточка студента
 
-###  Код программы (`src/main.rs`)
+### Код программы (`src/main.rs`)
 
 ```rust
 use std::io;
@@ -81,16 +85,24 @@ mod tests {
         assert!(card.contains("Age: 20"));
     }
 }
- Cargo.toml
-toml
+
+```
+
+### Файл конфигурации (`Cargo.toml`)
+
+```toml
 [package]
 name = "task01_student_card"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
- Результат выполнения
-text
+
+```
+
+### Результат выполнения
+
+```text
 Enter student name:
 Anastasia
 Enter group:
@@ -105,8 +117,12 @@ Group: IVT-1-1
 Birth year: 2006
 Current year: 2026
 Age: 20
- Проверка форматирования и тестов
-bash
+
+```
+
+### Проверка форматирования и тестов
+
+```bash
 $ cargo fmt
 $ cargo test
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
@@ -118,9 +134,16 @@ test tests::parses_year_with_spaces ... ok
 test tests::builds_card_with_expected_lines ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-Задача 1.2. Мини-каталог книг
- Код программы (src/main.rs)
-rust
+
+```
+
+---
+
+## Задача 1.2. Мини-каталог книг
+
+### Код программы (`src/main.rs`)
+
+```rust
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Genre {
     Fiction,
@@ -236,16 +259,24 @@ mod tests {
         assert_eq!(newest.unwrap().year, 2022);
     }
 }
- Cargo.toml
-toml
+
+```
+
+### Файл конфигурации (`Cargo.toml`)
+
+```toml
 [package]
 name = "task02_library_catalog"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
- Результат выполнения
-text
+
+```
+
+### Результат выполнения
+
+```text
 Library catalog
 - The Rust Journey - I. Ferris, 2024, Science, 320 pages
 - Safe Systems - A. Memory, 2022, Science, 280 pages
@@ -255,8 +286,12 @@ Total books: 4
 Science books: 2
 Total pages: 1070
 Newest book: The Rust Journey (2024)
- Проверка форматирования и тестов
-bash
+
+```
+
+### Проверка форматирования и тестов
+
+```bash
 $ cargo fmt
 $ cargo test
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
@@ -268,5 +303,15 @@ test tests::calculates_total_pages ... ok
 test tests::finds_newest_book ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
- Информация о студенте
-Ерохина Анастасия Андреевна, 1 курс, группа ИВТ 1-1
+
+```
+
+---
+
+## Информация о студенте
+
+**Ерохина Анастасия Андреевна, 1 курс, группа ИВТ 1-1**
+
+```</Book>
+
+```
