@@ -97,6 +97,8 @@ edition = "2024"
 
 ### Результат выполнения
 
+![Скриншот 1](img/1.png)
+
 ```text
 Enter student name:
 Anastasia
@@ -116,6 +118,8 @@ Age: 20
 ```
 
 ### Проверка форматирования и тестов
+
+![Скриншот 2](img/2.png)
 
 ```bash
 $ cargo fmt
@@ -271,6 +275,8 @@ edition = "2024"
 
 ### Результат выполнения
 
+![Скриншот 3](img/3.png)
+
 ```text
 Library catalog
 - The Rust Journey - I. Ferris, 2024, Science, 320 pages
@@ -285,6 +291,8 @@ Newest book: The Rust Journey (2024)
 ```
 
 ### Проверка форматирования и тестов
+
+![Скриншот 4](img/4.png)
 
 ```bash
 $ cargo fmt
