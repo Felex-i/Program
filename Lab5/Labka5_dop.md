@@ -105,7 +105,7 @@ Group: IVT-1-1
 Birth year: 2006
 Current year: 2026
 Age: 20
-✅ Проверка форматирования и тестов
+ Проверка форматирования и тестов
 bash
 $ cargo fmt
 $ cargo test
